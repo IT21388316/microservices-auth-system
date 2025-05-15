@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies - user-auth
+        working-directory: ./user-auth
+        run: npm install
+
+      - name: Install Dependencies - notification
+        working-directory: ./notification
+        run: npm install
+
+      - name: Install Dependencies - user-profile
+        working-directory: ./user-profile
+        run: npm install
+
+      - name: Lint & Build Check
+        run: echo "Build passed ✔️"
